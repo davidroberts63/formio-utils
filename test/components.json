@@ -63,7 +63,8 @@
                         {
                           "key": "seven",
                           "order": 7,
-                          "type": "textfield"
+                          "type": "textarea",
+                          "rows": 3
                         }
                       ]
                     }
