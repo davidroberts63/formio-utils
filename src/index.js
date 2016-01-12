@@ -38,7 +38,7 @@ module.exports = {
    */
   getComponent: function getComponent(components, key) {
     var result;
-    this.eachComponent(components, function(component) {
+    module.exports.eachComponent(components, function(component) {
       if (component.key === key) {
         result = component;
       }
@@ -54,7 +54,7 @@ module.exports = {
    */
   flattenComponents: function flattenComponents(components) {
     var flattened = {};
-    this.eachComponent(components, function(component) {
+    module.exports.eachComponent(components, function(component) {
       flattened[component.key] = component;
     });
     return flattened;

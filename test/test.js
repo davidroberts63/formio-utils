@@ -27,11 +27,33 @@ describe('getComponent', function() {
 			expect(component.key).to.equal(writtenNumber(n));
 		}
 	});
+
+	it('should work with a different this context', function() {
+		for (var n = 1; n <= 8; n += 1) {
+			var component = utils.getComponent.call({}, components, writtenNumber(n));
+			expect(component).not.to.be.null;
+			expect(component).not.to.be.undefined;
+			expect(component).to.be.an('object');
+			expect(component.order).to.equal(n);
+			expect(component.key).to.equal(writtenNumber(n));
+		}
+	});
 });
 
 describe('flattenComponents', function() {
 	it('should return an object of flattened components', function() {
 		var flattened = utils.flattenComponents(components);
+		for (var n = 1; n <= 8; n += 1) {
+			var component = flattened[writtenNumber(n)];
+			expect(component).not.to.be.undefined;
+			expect(component).to.be.an('object');
+			expect(component.order).to.equal(n);
+			expect(component.key).to.equal(writtenNumber(n));
+		}
+	});
+
+	it('should work with a different this context', function() {
+		var flattened = utils.flattenComponents.call({}, components);
 		for (var n = 1; n <= 8; n += 1) {
 			var component = flattened[writtenNumber(n)];
 			expect(component).not.to.be.undefined;
