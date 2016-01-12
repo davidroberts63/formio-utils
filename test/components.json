@@ -1,6 +1,7 @@
 [
   {
     "type": "textfield",
+    "key": "one",
     "order": 1
   },
   {
@@ -8,6 +9,7 @@
     "components": [
       {
         "type": "textfield",
+        "key": "two",
         "order": 2
       },
       {
@@ -17,6 +19,7 @@
             "components": [
               {
                 "type": "textfield",
+                "key": "three",
                 "order": 3
               }
             ]
@@ -29,6 +32,7 @@
                     {
                       "components": [
                         {
+                          "key": "four",
                           "order": 4,
                           "type": "textfield"
                         }
@@ -37,6 +41,7 @@
                     {
                       "components": [
                         {
+                          "key": "five",
                           "order": 5,
                           "type": "textfield"
                         }
@@ -47,6 +52,7 @@
                     {
                       "components": [
                         {
+                          "key": "six",
                           "order": 6,
                           "type": "textfield"
                         }
@@ -55,6 +61,7 @@
                     {
                       "components": [
                         {
+                          "key": "seven",
                           "order": 7,
                           "type": "textfield"
                         }
@@ -73,6 +80,7 @@
     "type": "well"
   },
   {
+    "key": "eight",
     "order": 8,
     "type": "button"
   }
