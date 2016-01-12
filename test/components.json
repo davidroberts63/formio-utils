@@ -1,0 +1,79 @@
+[
+  {
+    "type": "textfield",
+    "order": 1
+  },
+  {
+    "input": false,
+    "components": [
+      {
+        "type": "textfield",
+        "order": 2
+      },
+      {
+        "input": false,
+        "columns": [
+          {
+            "components": [
+              {
+                "type": "textfield",
+                "order": 3
+              }
+            ]
+          },
+          {
+            "components": [
+              {
+                "rows": [
+                  [
+                    {
+                      "components": [
+                        {
+                          "order": 4,
+                          "type": "textfield"
+                        }
+                      ]
+                    },
+                    {
+                      "components": [
+                        {
+                          "order": 5,
+                          "type": "textfield"
+                        }
+                      ]
+                    }
+                  ],
+                  [
+                    {
+                      "components": [
+                        {
+                          "order": 6,
+                          "type": "textfield"
+                        }
+                      ]
+                    },
+                    {
+                      "components": [
+                        {
+                          "order": 7,
+                          "type": "textfield"
+                        }
+                      ]
+                    }
+                  ]
+                ],
+                "type": "table"
+              }
+            ]
+          }
+        ],
+        "type": "columns"
+      }
+    ],
+    "type": "well"
+  },
+  {
+    "order": 8,
+    "type": "button"
+  }
+]
