@@ -1,14 +1,14 @@
-/* eslint-env mocha, node */
-import {expect} from 'chai';
+/* eslint-env mocha */
+var expect = require('chai').expect;
 
-import {eachComponent} from '../src/index';
+var utils = require('../src/index');
 
-describe('eachComponent', () => {
-	let components = require('./components.json');
+describe('eachComponent', function() {
+	var components = require('./components.json');
 
-	it('should iterate through nested components in the right order', () => {
+	it('should iterate through nested components in the right order', function() {
 		var n = 1;
-		eachComponent(components, (component) => {
+		utils.eachComponent(components, function(component) {
 			expect(component.order).to.equal(n);
 			n += 1;
 		});

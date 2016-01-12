@@ -21,13 +21,6 @@ utils.eachComponent(form.components, function(component) {
 })
 ```
 
-
-## Building
-
-```
-$ npm run build
-```
-
 ## Testing
 
 ```
