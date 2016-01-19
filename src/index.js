@@ -8,7 +8,10 @@ module.exports = {
     if (!components) return;
 
     components.forEach(function(component) {
-      if (component.columns && Array.isArray(component.columns)) {
+      if (component.tree) {
+        fn(component);
+      }
+      else if (component.columns && Array.isArray(component.columns)) {
         component.columns.forEach(function(column) {
           eachComponent(column.components, fn);
         });
