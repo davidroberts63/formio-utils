@@ -4,31 +4,35 @@ module.exports = {
    * @param components
    * @param fn
    */
-  eachComponent: function eachComponent(components, fn) {
+  eachComponent: function eachComponent(components, fn, showLayouts) {
     if (!components) return;
 
     components.forEach(function(component) {
+      var layout = false;
       if (component.columns && Array.isArray(component.columns)) {
+        layout = true;
         component.columns.forEach(function(column) {
           eachComponent(column.components, fn);
         });
       }
 
       else if (component.rows && Array.isArray(component.rows)) {
+        layout = true;
         [].concat.apply([], component.rows).forEach(function(row) {
           eachComponent(row.components, fn);
         });
       }
 
       else if (component.components && Array.isArray(component.components)) {
+        layout = true;
         eachComponent(component.components, fn);
       }
 
       else {
         fn(component);
       }
-      // If the component is a tree, be sure to add it back in as well.
-      if (component.tree) {
+      // If the component is a tree or we want to show layouts, be sure to add it back in as well.
+      if (layout && (component.tree || showLayouts)) {
         fn(component);
       }
     });
