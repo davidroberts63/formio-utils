@@ -14,6 +14,47 @@ describe('eachComponent', function() {
 			n += 1;
 		});
 	});
+
+	it('should include layouts components if provided', function() {
+		var numComps = 0;
+		var numLayout = 0;
+		utils.eachComponent(components, function(component) {
+			if (utils.isLayoutComponent(component)) {
+				numLayout++;
+			}
+			else {
+				numComps++;
+			}
+		}, true);
+		expect(numLayout).to.be.equal(3);
+		expect(numComps).to.be.equal(8);
+	});
+
+	it('should be able to block recursion', function() {
+		var numComps = 0;
+		var numLayout = 0;
+		utils.eachComponent(components, function(component) {
+			if (utils.isLayoutComponent(component)) {
+				numLayout++;
+			}
+			else {
+				numComps++;
+			}
+
+			if (component.type === 'table') {
+				var numInTable = 0;
+				[].concat.apply([], component.rows).forEach(function(row) {
+					utils.eachComponent(row.components, function() {
+						numInTable++;
+					});
+				});
+				expect(numInTable).to.be.equal(4);
+				return true;
+			}
+		}, true);
+		expect(numLayout).to.be.equal(3);
+		expect(numComps).to.be.equal(4);
+	});
 });
 
 describe('getComponent', function() {
