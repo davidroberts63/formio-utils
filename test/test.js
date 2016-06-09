@@ -81,6 +81,33 @@ describe('eachComponent', function() {
 		expect(paths).to.deep.equal(testPaths);
 	});
 
+	it('Should still provide the correct paths when it is not recursive', function() {
+		var paths = [
+			'a',
+			'd',
+			'f',
+			'f.g',
+			'f.h',
+			'f.i',
+			'e',
+			'j',
+			'k',
+			'k.n',
+			'k.n.o',
+			'k.n.p',
+			'k.n.q',
+			'k.m',
+			'k.l',
+			'r',
+			'submit'
+		];
+		var testPaths = [];
+		utils.eachComponent(require('./components2.json'), function(component, path) {
+			testPaths.push(path);
+		});
+		expect(paths).to.deep.equal(testPaths);
+	});
+
 	it('should be able to block recursion', function() {
 		var numComps = 0;
 		var numLayout = 0;
