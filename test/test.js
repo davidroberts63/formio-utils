@@ -30,6 +30,57 @@ describe('eachComponent', function() {
 		expect(numComps).to.be.equal(8);
 	});
 
+	it('Should provide the paths to all of the components', function() {
+		var paths = [
+			'one',
+			'parent1',
+			'two',
+			'parent2',
+			'three',
+			'',
+			'four',
+			'five',
+			'six',
+			'seven',
+			'eight'
+		];
+		var testPaths = [];
+		utils.eachComponent(components, function(component, path) {
+			testPaths.push(path);
+		}, true);
+		expect(paths).to.deep.equal(testPaths);
+	});
+
+	it('Should be able to generate paths based on component types', function() {
+		var components = require('./components2.json');
+		var paths = [
+			'a',
+			'b',
+			'c',
+			'd',
+			'f',
+			'f.g',
+			'f.h',
+			'f.i',
+			'e',
+			'j',
+			'k',
+			'k.n',
+			'k.n.o',
+			'k.n.p',
+			'k.n.q',
+			'k.m',
+			'k.l',
+			'r',
+			'submit'
+		];
+		var testPaths = [];
+		utils.eachComponent(components, function(component, path) {
+			testPaths.push(path);
+		}, true);
+		expect(paths).to.deep.equal(testPaths);
+	});
+
 	it('should be able to block recursion', function() {
 		var numComps = 0;
 		var numLayout = 0;
