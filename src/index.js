@@ -75,11 +75,11 @@ module.exports = {
    * @param flattened
    * @returns {*|{}}
    */
-  flattenComponents: function flattenComponents(components) {
+  flattenComponents: function flattenComponents(components, includeAll) {
     var flattened = {};
     module.exports.eachComponent(components, function(component) {
       flattened[component.key] = component;
-    });
+    }, includeAll);
     return flattened;
   }
 };
