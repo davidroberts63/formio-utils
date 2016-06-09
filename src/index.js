@@ -77,8 +77,8 @@ module.exports = {
    */
   flattenComponents: function flattenComponents(components, includeAll) {
     var flattened = {};
-    module.exports.eachComponent(components, function(component) {
-      flattened[component.key] = component;
+    module.exports.eachComponent(components, function(component, path) {
+      flattened[path] = component;
     }, includeAll);
     return flattened;
   }
