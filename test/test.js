@@ -1,10 +1,11 @@
+'use strict';
+
 /* eslint-env mocha */
 var expect = require('chai').expect;
 var writtenNumber = require('written-number');
-
 var utils = require('../src/index');
-
 var components = require('./components.json');
+var submission1 = require('./submission1.json');
 
 describe('eachComponent', function() {
 	it('should iterate through nested components in the right order', function() {
@@ -181,4 +182,14 @@ describe('flattenComponents', function() {
 			expect(component.key).to.equal(writtenNumber(n));
 		}
 	});
+});
+
+describe('getValue', function() {
+  it('should be able to get a simple value', function() {
+    expect(utils.getValue(submission1, 'name')).to.be.equal(submission1.data.name);
+  });
+
+  it('should be able to get a value from a container', function() {
+    expect(utils.getValue(submission1, 'animalname')).to.be.equal(submission1.data.mycontainer.animalname);
+  });
 });
