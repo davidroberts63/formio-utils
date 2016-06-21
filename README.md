@@ -9,9 +9,9 @@ $ npm install formio-utils
 
 ## Functions
 
-### eachComponent(components, fn)
+### eachComponent(components, fn, includeAll, path)
 
-Calls `fn(component)` for each component in `components`, accounting for nested layout components. (Does not call for layout components themselves).
+Calls `fn(component)` for each component in `components`, accounting for nested layout components. (Does not call for layout components themselves, unless includeAll is true).
 
 ```javascript
 var utils = require('formio-utils');
@@ -31,15 +31,26 @@ var utils = require('formio-utils');
 var component = utils.getComponent(form.components, 'myKey');
 ```
 
-### flattenComponents(components)
+### flattenComponents(components, includeAll)
 
-Returns an key-value object where the keys are the keys for each component in `components` and each key points to the corresponding component. This includes nested components as well.
+Returns an key-value object where the keys are the keys for each component in `components` and each key points to the corresponding component. This includes nested components as well. Pass true for includeAll if you want to include layout components.
 
 ```javascript
 var utils = require('formio-utils');
 
 var flattened = utils.flattenComponents(form.components);
 console.log(flattened['myNestedComponent']);
+```
+
+### isLayoutComponent(component)
+
+Determine if a component is a layout component.
+
+```javascript
+var utils = require('formio-utils');
+
+var layoutComponent = utils.isLayoutComponent(form.components[0]);
+console.log(layoutComponent);
 ```
 
 ## Testing
