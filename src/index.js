@@ -28,7 +28,7 @@ module.exports = {
    * @param {Boolean} includeAll
    *   Whether or not to include layout components.
    * @param {String} path
-   *   @TODO
+   *   The current data path of the element. Example: data.user.firstName
    */
   eachComponent: function eachComponent(components, fn, includeAll, path) {
     if (!components) return;
