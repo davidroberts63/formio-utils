@@ -55,6 +55,16 @@ var layoutComponent = utils.isLayoutComponent(form.components[0]);
 console.log(layoutComponent);
 ```
 
+### getValue(submission, componentKey)
+
+Get the value for a components API key, from the given submission. Recursively searches the submission for the key.
+
+```javascript
+var utils = require('formio-utils');
+
+var value = utils.getValue(submission, 'myComponent'); // The value or undefined.
+```
+
 ## Testing
 
 ```
