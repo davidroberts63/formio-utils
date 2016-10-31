@@ -125,7 +125,7 @@ module.exports = {
     var search = function search(data) {
       var i;
       var value;
-      
+
       if (!data) {
         return null;
       }
