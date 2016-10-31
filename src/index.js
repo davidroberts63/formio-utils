@@ -125,6 +125,10 @@ module.exports = {
     var search = function search(data) {
       var i;
       var value;
+      
+      if (!data) {
+        return null;
+      }
 
       if (data instanceof Array) {
         for (i = 0; i < data.length; i++) {
