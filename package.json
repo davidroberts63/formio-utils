@@ -1,7 +1,7 @@
 {
   "name": "formio-utils",
   "description": "Utility functions for form.io",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "license": "MIT",
   "main": "src/index.js",
   "author": "Rahat Ahmed",
