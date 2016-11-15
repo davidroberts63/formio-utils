@@ -130,7 +130,7 @@ module.exports = {
         return true;
       }
     }
-    else if (component.hasOwnProperty(conditional) && component.conditional && component.conditional.when) {
+    else if (component.hasOwnProperty('conditional') && component.conditional && component.conditional.when) {
       var cond = component.conditional;
       var value = this.getValue({data: data}, cond.when) || (component.hasOwnProperty('defaultValue') ? component.defaultValue : '');
       // Special check for selectboxes component.
