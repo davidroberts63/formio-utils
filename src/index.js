@@ -119,44 +119,29 @@ module.exports = {
    *   The data for this conditional check.
    * @returns {boolean}
    */
-  checkCondition: function(component, compData) {
-    var shown = true;
-    if (component.customConditional) {
+  checkCondition: function(component, data) {
+    if (component.hasOwnProperty('customConditional') && component.customConditional) {
       try {
-        shown = eval('(function() { ' + component.customConditional.toString() + '; return show; })()');
-        shown = shown.toString() === 'true';
+        var result = eval('(function() { ' + component.customConditional.toString() + '; return show; })()');
+        return result.toString() === 'true';
       }
       catch (e) {
         console.warn('An error occurred in a custom conditional statement for component ' + component.key, e);
-        shown = true;
+        return true;
       }
     }
-    else if (component.conditional && component.conditional.when) {
+    else if (component.hasOwnProperty(conditional) && component.conditional && component.conditional.when) {
       var cond = component.conditional;
-      var value = this.getValue({data: compData}, cond.when) || (component.hasOwnProperty('defaultValue') ? component.defaultValue : '');
-      if (typeof value !== 'object') {
-        // Check if the conditional value is equal to the trigger value
-        shown = (value.toString() === cond.eq.toString()) === (cond.show.toString() === 'true');
+      var value = this.getValue({data: data}, cond.when) || (component.hasOwnProperty('defaultValue') ? component.defaultValue : '');
+      // Special check for selectboxes component.
+      if (typeof value === 'object' && value.hasOwnProperty(cond.eq)) {
+        value = value[cond.eq];
       }
-      // Special check for check boxes component.
-      else if (typeof value === 'object') {
-        // Only update the visibility is present, otherwise hide, because it was deleted by the submission sweep.
-        if (value.hasOwnProperty(cond.eq)) {
-          shown = ((value[cond.eq] === 'true') || (value[cond.eq] === true));
-          shown = shown ? (cond.show === 'true') : (cond.show === 'false');
-        }
-        else {
-          shown = cond.show.toString() === 'true';
-        }
-      }
-      // If there is no value, we still need to process as not equal.
-      else {
-        shown = cond.show.toString() === 'true';
-      }
+      return (value.toString() === cond.eq.toString()) === (cond.show.toString() === 'true');
     }
 
-    // Return if this is component is shown.
-    return shown;
+    // Default to show.
+    return true;
   },
 
   /**
