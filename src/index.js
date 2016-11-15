@@ -1,5 +1,4 @@
 'use strict';
-
 module.exports = {
   /**
    * Determine if a component is a layout component or not.
@@ -109,6 +108,40 @@ module.exports = {
       flattened[path] = component;
     }, includeAll);
     return flattened;
+  },
+
+  /**
+   * Checks the conditions for a provided component and data.
+   *
+   * @param component
+   *   The component to check for the condition.
+   * @param compData
+   *   The data for this conditional check.
+   * @returns {boolean}
+   */
+  checkCondition: function(component, data) {
+    if (component.hasOwnProperty('customConditional') && component.customConditional) {
+      try {
+        var result = eval('(function() { ' + component.customConditional.toString() + '; return show; })()');
+        return result.toString() === 'true';
+      }
+      catch (e) {
+        console.warn('An error occurred in a custom conditional statement for component ' + component.key, e);
+        return true;
+      }
+    }
+    else if (component.hasOwnProperty(conditional) && component.conditional && component.conditional.when) {
+      var cond = component.conditional;
+      var value = this.getValue({data: data}, cond.when) || (component.hasOwnProperty('defaultValue') ? component.defaultValue : '');
+      // Special check for selectboxes component.
+      if (typeof value === 'object' && value.hasOwnProperty(cond.eq)) {
+        return value[cond.eq].toString() === cond.show.toString();
+      }
+      return (value.toString() === cond.eq.toString()) === (cond.show.toString() === 'true');
+    }
+
+    // Default to show.
+    return true;
   },
 
   /**
