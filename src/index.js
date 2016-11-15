@@ -132,6 +132,7 @@ module.exports = {
         shown = boolean.hasOwnProperty(shown.toString()) ? boolean[shown] : true;
       }
       catch (e) {
+        console.warn('An error occurred in a custom conditional statement for component ' + component.key, e);
         shown = true;
       }
     }
