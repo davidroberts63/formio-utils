@@ -122,10 +122,8 @@ module.exports = {
    * @param data
    * @returns {boolean}
    */
-  checkCondition: function(component, submission, data) {
+  checkCondition: function(component, compData) {
     var shown = true;
-    var subData = submission ? submission.data : {};
-    var compData = Object.assign({}, subData, data);
     if (component.customConditional) {
       try {
         shown = eval('(function() { ' + component.customConditional.toString() + '; return show; })()');
