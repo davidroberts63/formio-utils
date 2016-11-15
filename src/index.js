@@ -143,6 +143,7 @@ module.exports = {
         // Only update the visibility is present, otherwise hide, because it was deleted by the submission sweep.
         if (value.hasOwnProperty(cond.eq)) {
           shown = ((value[cond.eq] === 'true') || (value[cond.eq] === true));
+          shown = shown ? (cond.show === 'true') : (cond.show === 'false');
         }
         else {
           shown = (cond.show === 'true');
