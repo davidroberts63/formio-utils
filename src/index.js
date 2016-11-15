@@ -162,11 +162,6 @@ module.exports = {
       }
     }
 
-    // Make sure to delete the data for invisible fields.
-    if (!shown && data.hasOwnProperty(component.key)) {
-      delete data[component.key];
-    }
-
     // Return if this is component is shown.
     return shown;
   },
