@@ -122,7 +122,7 @@ module.exports = {
   checkCondition: function(component, data) {
     if (component.hasOwnProperty('customConditional') && component.customConditional) {
       try {
-        var result = eval('(function() { ' + component.customConditional.toString() + '; return show; })()');
+        var result = eval('(function() { var show = true;' + component.customConditional.toString() + '; return show; })()');
         return result.toString() === 'true';
       }
       catch (e) {
