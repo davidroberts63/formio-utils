@@ -1,5 +1,8 @@
 'use strict';
-
+var boolean = {
+  'true': true,
+  'false': false
+};
 module.exports = {
   /**
    * Determine if a component is a layout component or not.
@@ -109,6 +112,41 @@ module.exports = {
       flattened[path] = component;
     }, includeAll);
     return flattened;
+  },
+
+  /**
+   * Checks the conditions for a provided component and data.
+   *
+   * @param component
+   * @param submission
+   * @param data
+   * @returns {boolean}
+   */
+  checkCondition: function(component, submission, data) {
+    var shown = true;
+    var subData = submission ? submission.data : {};
+    var compData = Object.assign({}, subData, data);
+    if (component.customConditional) {
+      try {
+        shown = eval('(function() { ' + component.customConditional.toString() + '; return show; })()');
+        shown = boolean.hasOwnProperty(shown.toString()) ? boolean[shown] : true;
+      }
+      catch (e) {
+        shown = true;
+      }
+    }
+    else if (component.conditional && component.conditional.when) {
+      var value = this.getValue(compData, component.conditional.when) || '';
+      shown = (value.toString() === component.conditional.eq.toString()) === (component.conditional.show.toString() === 'true');
+    }
+
+    // Make sure to delete the data for invisible fields.
+    if (!shown && data.hasOwnProperty(component.key)) {
+      delete data[component.key];
+    }
+
+    // Return if this is component is shown.
+    return shown;
   },
 
   /**
