@@ -118,8 +118,9 @@ module.exports = {
    * Checks the conditions for a provided component and data.
    *
    * @param component
-   * @param submission
-   * @param data
+   *   The component to check for the condition.
+   * @param compData
+   *   The data for this conditional check.
    * @returns {boolean}
    */
   checkCondition: function(component, compData) {
