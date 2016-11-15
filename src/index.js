@@ -135,7 +135,7 @@ module.exports = {
       var value = this.getValue({data: data}, cond.when) || (component.hasOwnProperty('defaultValue') ? component.defaultValue : '');
       // Special check for selectboxes component.
       if (typeof value === 'object' && value.hasOwnProperty(cond.eq)) {
-        value = value[cond.eq];
+        return value[cond.eq].toString() === cond.show.toString();
       }
       return (value.toString() === cond.eq.toString()) === (cond.show.toString() === 'true');
     }
