@@ -149,8 +149,8 @@ module.exports = {
         }
       }
       // Check against the components default value, if present and the components hasn't been interacted with.
-      else if (typeof value === 'undefined' && cond.hasOwnProperty('defaultValue')) {
-        shown = (cond.defaultValue.toString() === cond.eq.toString()) ? (cond.show === 'true') : (cond.show === 'false');
+      else if (typeof value === 'undefined' && component.hasOwnProperty('defaultValue')) {
+        shown = (component.defaultValue.toString() === cond.eq.toString()) ? (cond.show === 'true') : (cond.show === 'false');
       }
       // If there is no value, we still need to process as not equal.
       else {
