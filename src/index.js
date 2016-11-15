@@ -136,8 +136,30 @@ module.exports = {
       }
     }
     else if (component.conditional && component.conditional.when) {
-      var value = this.getValue(compData, component.conditional.when) || '';
-      shown = (value.toString() === component.conditional.eq.toString()) === (component.conditional.show.toString() === 'true');
+      var cond = component.conditional;
+      var value = this.getValue({data: compData}, cond.when);
+      if (typeof value !== 'undefined' && typeof value !== 'object') {
+        // Check if the conditional value is equal to the trigger value
+        shown = (value.toString() === cond.eq.toString()) ? boolean[cond.show] : !boolean[cond.show];
+      }
+      // Special check for check boxes component.
+      else if (typeof value !== 'undefined' && typeof value === 'object') {
+        // Only update the visibility is present, otherwise hide, because it was deleted by the submission sweep.
+        if (value.hasOwnProperty(cond.eq)) {
+          shown = boolean.hasOwnProperty(value[cond.eq]) ? boolean[value[cond.eq]] : true;
+        }
+        else {
+          shown = false;
+        }
+      }
+      // Check against the components default value, if present and the components hasn't been interacted with.
+      else if (typeof value === 'undefined' && cond.hasOwnProperty('defaultValue')) {
+        shown = (cond.defaultValue.toString() === cond.eq.toString()) ? boolean[cond.show] : !boolean[cond.show];
+      }
+      // If there is no value, we still need to process as not equal.
+      else {
+        shown = !boolean[cond.show];
+      }
     }
 
     // Make sure to delete the data for invisible fields.
