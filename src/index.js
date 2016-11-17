@@ -135,7 +135,11 @@ module.exports = {
     }
     else if (component.hasOwnProperty('conditional') && component.conditional && component.conditional.when) {
       var cond = component.conditional;
-      var value = this.getValue({data: data}, cond.when) || (component.hasOwnProperty('defaultValue') ? component.defaultValue : '');
+      var value = this.getValue({data: data}, cond.when);
+      // Will return null if not found.
+      if (value === null || typeof value === 'undefined') {
+        value = component.hasOwnProperty('defaultValue') ? component.defaultValue : '';
+      }
       // Special check for selectboxes component.
       if (typeof value === 'object' && value.hasOwnProperty(cond.eq)) {
         return value[cond.eq].toString() === cond.show.toString();
