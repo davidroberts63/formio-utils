@@ -119,7 +119,7 @@ module.exports = {
    *   The data for this conditional check.
    * @returns {boolean}
    */
-  checkCondition: function(component, data) {
+  checkCondition: function(component, data, submission) {
     if (component.hasOwnProperty('customConditional') && component.customConditional) {
       try {
         var script = '(function() { var show = true;';
@@ -135,7 +135,13 @@ module.exports = {
     }
     else if (component.hasOwnProperty('conditional') && component.conditional && component.conditional.when) {
       var cond = component.conditional;
-      var value = this.getValue({data: data}, cond.when) || (component.hasOwnProperty('defaultValue') ? component.defaultValue : '');
+      var value = this.getValue({data: data}, cond.when);
+      if (!value && submission) {
+        value = this.getValue(submission, cond.when);
+      }
+      if (!value && component.hasOwnProperty('defaultValue')) {
+        value = component.defaultValue;
+      }
       // Special check for selectboxes component.
       if (typeof value === 'object' && value.hasOwnProperty(cond.eq)) {
         return value[cond.eq].toString() === cond.show.toString();
