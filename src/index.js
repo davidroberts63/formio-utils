@@ -115,11 +115,14 @@ module.exports = {
    *
    * @param component
    *   The component to check for the condition.
-   * @param compData
-   *   The data for this conditional check.
+   * @param row
+   *   The data within a row
+   * @param data
+   *   The full submission data.
+   *
    * @returns {boolean}
    */
-  checkCondition: function(component, data, submission) {
+  checkCondition: function(component, row, data) {
     if (component.hasOwnProperty('customConditional') && component.customConditional) {
       try {
         var script = '(function() { var show = true;';
@@ -135,9 +138,12 @@ module.exports = {
     }
     else if (component.hasOwnProperty('conditional') && component.conditional && component.conditional.when) {
       var cond = component.conditional;
-      var value = this.getValue({data: data}, cond.when);
-      if (submission && (value === null || typeof value === 'undefined')) {
-        value = this.getValue(submission, cond.when);
+      var value = null;
+      if (row) {
+        value = this.getValue({data: row}, cond.when);
+      }
+      if (data && (value === null || typeof value === 'undefined')) {
+        value = this.getValue({data: data}, cond.when);
       }
       if (value === null || typeof value === 'undefined') {
         value = component.hasOwnProperty('defaultValue') ? component.defaultValue : '';
