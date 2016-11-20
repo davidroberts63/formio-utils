@@ -119,7 +119,7 @@ module.exports = {
    *   The data for this conditional check.
    * @returns {boolean}
    */
-  checkCondition: function(component, data) {
+  checkCondition: function(component, data, submission) {
     if (component.hasOwnProperty('customConditional') && component.customConditional) {
       try {
         var script = '(function() { var show = true;';
@@ -136,7 +136,9 @@ module.exports = {
     else if (component.hasOwnProperty('conditional') && component.conditional && component.conditional.when) {
       var cond = component.conditional;
       var value = this.getValue({data: data}, cond.when);
-      // Will return null if not found.
+      if (submission && (value === null || typeof value === 'undefined')) {
+        value = this.getValue(submission, cond.when);
+      }
       if (value === null || typeof value === 'undefined') {
         value = component.hasOwnProperty('defaultValue') ? component.defaultValue : '';
       }
