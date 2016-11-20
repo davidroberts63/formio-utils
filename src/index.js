@@ -115,14 +115,14 @@ module.exports = {
    *
    * @param component
    *   The component to check for the condition.
-   * @param data
-   *   The full submission data object.
    * @param row
-   *   The data within a row.
+   *   The data within a row
+   * @param data
+   *   The full submission data.
    *
    * @returns {boolean}
    */
-  checkCondition: function(component, data, row) {
+  checkCondition: function(component, row, data) {
     if (component.hasOwnProperty('customConditional') && component.customConditional) {
       try {
         var script = '(function() { var show = true;';
