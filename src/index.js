@@ -136,11 +136,11 @@ module.exports = {
     else if (component.hasOwnProperty('conditional') && component.conditional && component.conditional.when) {
       var cond = component.conditional;
       var value = this.getValue({data: data}, cond.when);
-      if (!value && submission) {
+      if (submission && (value === null || typeof value === 'undefined')) {
         value = this.getValue(submission, cond.when);
       }
-      if (!value && component.hasOwnProperty('defaultValue')) {
-        value = component.defaultValue;
+      if (value === null || typeof value === 'undefined') {
+        value = component.hasOwnProperty('defaultValue') ? component.defaultValue : '';
       }
       // Special check for selectboxes component.
       if (typeof value === 'object' && value.hasOwnProperty(cond.eq)) {
