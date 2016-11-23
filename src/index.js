@@ -152,6 +152,11 @@ module.exports = {
       if (typeof value === 'object' && value.hasOwnProperty(cond.eq)) {
         return value[cond.eq].toString() === cond.show.toString();
       }
+      // FOR-179 - Check for multiple values.
+      if (value instanceof Array && value.indexOf(cond.eq) !== -1) {
+        return (cond.show.toString() === 'true');
+      }
+
       return (value.toString() === cond.eq.toString()) === (cond.show.toString() === 'true');
     }
 
