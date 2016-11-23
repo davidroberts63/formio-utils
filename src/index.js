@@ -183,18 +183,7 @@ module.exports = {
         return null;
       }
 
-      if (data instanceof Array) {
-        for (i = 0; i < data.length; i++) {
-          if (typeof data[i] === 'object') {
-            value = search(data[i]);
-          }
-
-          if (value) {
-            return value;
-          }
-        }
-      }
-      else if (typeof data === 'object') {
+      if (typeof data === 'object' && !(data instanceof Array)) {
         if (data.hasOwnProperty(key)) {
           return data[key];
         }
