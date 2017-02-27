@@ -145,8 +145,9 @@ module.exports = {
       if (data && (value === null || typeof value === 'undefined')) {
         value = this.getValue({data: data}, cond.when);
       }
+      // FOR-400 - Fix issue where falsey values were being evaluated as show=true
       if (value === null || typeof value === 'undefined') {
-        value = component.hasOwnProperty('defaultValue') ? component.defaultValue : '';
+        return false;
       }
       // Special check for selectboxes component.
       if (typeof value === 'object' && value.hasOwnProperty(cond.eq)) {
